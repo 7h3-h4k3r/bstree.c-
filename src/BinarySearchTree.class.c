@@ -84,9 +84,55 @@ int _insert(bstree *bst , int value){
 
 }
 
+Node *findMin(Node *root){
+  
+    while (root->left != NULL)
+    {
+       root = root->left;
+    }
+    return root;
+    
+}
+Node* __delete__(Node *root,int key){
+    if (!root){
+        return root;
+    }
+    
+    if (key < root->data){
+       root->left = __delete__(root->left,key);
+    }
+    else if(key > root->data){
+       root->right =  __delete__(root->right,key);
+    }
+    else{
+        if (!root->left){
+            Node *temp = root->right;
+            return temp;
+        }
+        if (!root->right){
+            Node *temp = root->left;
+            return temp;
+        }
+        
+        Node *minF = findMin(root->right); 
+        root->data = minF->data;
+        root->right = __delete__(root->right,minF->data);
+    }
+    return root;
+
+
+}
+
+
+int _delete(bstree *bst,int key){
+    __delete__(bst->root,key);
+}
+
+
 void __init__(bstree *bst){
     bst->root = xmalloc(sizeof(Node));
     bst->root = NULL;
     bst->insert = _insert;
     bst->traverse = _traverse;
+    bst->delete = _delete;
 }

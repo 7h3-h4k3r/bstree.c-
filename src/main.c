@@ -11,4 +11,7 @@ int main(){
     bst.insert(&bst,30);
     bst.insert(&bst,6);
     bst.traverse(&bst,0);
+    printf("\n");
+    bst.delete(&bst,10);
+    bst.traverse(&bst,0);
 }
